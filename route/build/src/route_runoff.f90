@@ -19,6 +19,7 @@ USE main_route_module,   ONLY: main_route       ! main routing routine
 USE get_runoff        ,  ONLY: get_hru_runoff   !
 USE write_simoutput,     ONLY: prep_output      !
 USE write_simoutput,     ONLY: output           !
+USE public_var,          ONLY: outputTimestep   ! flag to control per-timestep console output (added by NV)
 USE write_restart,       ONLY: main_restart     ! write netcdf restart file
 USE model_finalize,      ONLY: finalize
 USE model_finalize,      ONLY: handle_err
@@ -78,21 +79,27 @@ call system_clock(startTime)
   if(ierr/=0) call handle_err(ierr, cmessage)
 call system_clock(endTime)
 elapsedTime = real(endTime-startTime, kind(dp))/real(cr)
-write(*,"(A,1PG15.7,A)") '   elapsed-time [read_ro] = ', elapsedTime, ' s'
+if (outputTimestep) then
+  write(*,"(A,1PG15.7,A)") '   elapsed-time [read_ro] = ', elapsedTime, ' s'
+end if
 
 call system_clock(startTime)
   call main_route(iens, ierr, cmessage)
   if(ierr/=0) call handle_err(ierr, cmessage)
 call system_clock(endTime)
 elapsedTime = real(endTime-startTime, kind(dp))/real(cr)
-write(*,"(A,1PG15.7,A)") '   elapsed-time [routing] = ', elapsedTime, ' s'
+if (outputTimestep) then
+  write(*,"(A,1PG15.7,A)") '   elapsed-time [routing] = ', elapsedTime, ' s'
+end if
 
 call system_clock(startTime)
   call output(ierr, cmessage)
   if(ierr/=0) call handle_err(ierr, cmessage)
 call system_clock(endTime)
 elapsedTime = real(endTime-startTime, kind(dp))/real(cr)
-write(*,"(A,1PG15.7,A)") '   elapsed-time [output] = ', elapsedTime, ' s'
+if (outputTimestep) then
+  write(*,"(A,1PG15.7,A)") '   elapsed-time [output] = ', elapsedTime, ' s'
+end if
 
   call main_restart(ierr, cmessage)
   if(ierr/=0) call handle_err(ierr, cmessage)

@@ -98,6 +98,7 @@
 ! output options
 ! ---------------------------
 <netcdf_format>         netcdf4                    ! netcdf format for output 'classic','64bit_offset','netcdf4'
+<outputTimestep>        T                          ! logical (T or F) whether to print timestep info to console (added by NV)
 <basRunoff>             T                          ! output options
 <instRunoff>            T                          ! output options
 <dlayRunoff>            T                          ! output options

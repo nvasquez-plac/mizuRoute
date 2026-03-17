@@ -178,6 +178,7 @@ CONTAINS
  USE public_var,          only : calendar          ! calendar name
  USE public_var,          only : newFileFrequency  ! frequency for new output files (day, month, annual)
  USE public_var,          only : time_units        ! time units (seconds, hours, or days)
+ USE public_var,          only : outputTimestep    ! flag to control per-timestep console output (added by NV)
  ! saved global data
  USE globalData,          only : basinID,reachID   ! HRU and reach ID in network
  USE globalData,          only : simDatetime       ! previous and current model time
@@ -198,7 +199,9 @@ CONTAINS
  ierr=0; message='prep_output/'
 
  ! print progress
- write(iulog,'(a,I4,4(x,I4))') new_line('a'), simDatetime(1)%year(), simDatetime(1)%month(), simDatetime(1)%day(), simDatetime(1)%hour(), simDatetime(1)%minute()
+ if (outputTimestep) then
+   write(iulog,'(a,I4,4(x,I4))') new_line('a'), simDatetime(1)%year(), simDatetime(1)%month(), simDatetime(1)%day(), simDatetime(1)%hour(), simDatetime(1)%minute()
+ end if
 
  ! check need for the new file
  select case(lower(trim(newFileFrequency)))

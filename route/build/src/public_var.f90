@@ -157,6 +157,7 @@ MODULE public_var
   integer(i4b)         ,public    :: idSegOut             = integerMissing  ! id of outlet stream segment
   integer(i4b)         ,public    :: desireId             = integerMissing  ! turn off checks or speficy reach ID if necessary to print on screen
   character(len=strLen),public    :: netcdf_format        = 'netcdf4'       ! netcdf format for output
+  logical(lgt)         ,public    :: outputTimestep       = .true.          ! logical whether or not to print timestep info to console (added by NV)
   ! PFAFCODE
   integer(i4b)         ,public    :: maxPfafLen           = 32              ! maximum digit of pfafstetter code (default 32).
   character(len=1)     ,public    :: pfafMissing          = '0'             ! missing pfafcode (e.g., reach without any upstream area)

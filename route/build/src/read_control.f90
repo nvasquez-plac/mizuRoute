@@ -179,6 +179,7 @@ CONTAINS
    case('<dname_wtTime>');         dname_wtTime    = trim(cData)                   ! dimension name for time
    ! MISCELLANEOUS
    case('<debug>');                read(cData,*,iostat=io_error) debug             ! print out detailed information throught the probram
+   case('<outputTimestep>');       read(cData,*,iostat=io_error) outputTimestep    ! logical whether or not to print timestep info to console (added by NV)
    case('<seg_outlet>'   );        read(cData,*,iostat=io_error) idSegOut          ! desired outlet reach id (if -9999 --> route over the entire network)
    case('<desireId>'   );          read(cData,*,iostat=io_error) desireId          ! turn off checks or speficy reach ID if necessary to print on screen
    case('<netcdf_format>');        netcdf_format = trim(cData)                     ! netcdf format for output 'classic','64bit_offset','netcdf4'
